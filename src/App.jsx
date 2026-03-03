@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from './share/Navbar'
 
 function App() {
     return (
-        <div className='text-4xl font-bold text-gray-600'>CS — Ticket System!!</div>
+        <>
+            <Navbar />
+        </>
     )
 }
 
