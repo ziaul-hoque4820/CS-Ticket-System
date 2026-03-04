@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import TicketCard from './TicketCard'
 
 import Swal from 'sweetalert2';
+import StatusBadge from './StatusBadge';
 
 function CustomerTickets({ tickets, setTickets }) {
 
@@ -28,6 +29,33 @@ function CustomerTickets({ tickets, setTickets }) {
             backdrop: `
             rgba(0,0,0,0.4)
         `,
+            showClass: {
+                popup: "animate__animated animate__zoomIn"
+            },
+            hideClass: {
+                popup: "animate__animated animate__zoomOut"
+            }
+        });
+    }
+
+    const handleComplete = (ticketId) => {
+        // update ticket status to Resolved
+        setTickets(prev => prev.map(ticket =>
+            ticket.id === ticketId
+                ? { ...ticket, status: "Resolved" }
+                : ticket
+        ));
+
+        // show sweetAlert
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Ticket Resolved ✅",
+            text: "The issue has been successfully completed.",
+            showConfirmButton: false,
+            timer: 1600,
+            timerProgressBar: true,
+            backdrop: "rgba(0,0,0,0.4)",
             showClass: {
                 popup: "animate__animated animate__zoomIn"
             },
@@ -69,9 +97,7 @@ function CustomerTickets({ tickets, setTickets }) {
                                 <div key={ticket.id} className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
 
                                     {/* Top: Badge */}
-                                    <span className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">
-                                        ● In-Progress
-                                    </span>
+                                    <StatusBadge status={ticket.status} />
 
                                     {/* Title */}
                                     <p className="text-sm font-semibold text-gray-800 mt-2 mb-3">
@@ -80,6 +106,7 @@ function CustomerTickets({ tickets, setTickets }) {
 
                                     {/* Complete Button */}
                                     <button
+                                        onClick={() => handleComplete(ticket.id)}
                                         className="w-full text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-lg py-2 transition-colors"
                                     >
                                         ✓ Mark as Complete
