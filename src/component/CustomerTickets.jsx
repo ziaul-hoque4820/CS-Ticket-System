@@ -1,11 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TicketCard from './TicketCard'
-import tickets from '../data/ticket-data.json';
+import ticketsData from '../data/ticket-data.json';
+import Swal from 'sweetalert2';
 
 function CustomerTickets({ setInProgress, setResolved }) {
-    const handleTaskStatus = (ticketId, event) => {
+    const [tickets, setTickets] = useState(ticketsData);
+
+
+    const handleUpdateTaskStatus = (ticketId, event) => {
         event.stopPropagation();
         console.log("Ticket ID:", ticketId);
+
+        // update ticket status to In-Progress
+        setTickets(prev => prev.map(ticket =>
+            ticket.id === ticketId
+                ? { ...ticket, status: "In-Progress" }
+                : ticket
+        ));
+
+        setInProgress(prev => prev + 1);
+
+        // show sweetAlert
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Ticket moved to In-Progress 🚀",
+            text: "Status updated successfully",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            backdrop: `
+            rgba(0,0,0,0.4)
+        `,
+            showClass: {
+                popup: "animate__animated animate__zoomIn"
+            },
+            hideClass: {
+                popup: "animate__animated animate__zoomOut"
+            }
+        });
     }
 
     return (
@@ -18,7 +51,7 @@ function CustomerTickets({ setInProgress, setResolved }) {
                     {
                         tickets.map(ticket => {
                             if (ticket.status === "Open" || ticket.status === "In-Progress") {
-                                return <TicketCard handleTaskStatus={handleTaskStatus} key={ticket.id} ticket={ticket} />
+                                return <TicketCard handleUpdateTaskStatus={handleUpdateTaskStatus} key={ticket.id} ticket={ticket} />
                             }
                         })
                     }

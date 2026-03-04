@@ -1,11 +1,11 @@
 import React from 'react'
 import StatusBadge from './StatusBadge'
 
-function TicketCard({ ticket, handleTaskStatus }) {
+function TicketCard({ ticket, handleUpdateTaskStatus }) {
     return (
         <div
             className="bg-white rounded-xl border border-gray-200 p-4 cursor-pointer hover:shadow-md hover:border-purple-300 transition-all duration-200 group"
-            onClick={(event) => handleTaskStatus(ticket.id, event)}
+            onClick={(event) => handleUpdateTaskStatus(ticket.id, event)}
         >
             <div className="flex justify-between items-start gap-2 mb-2">
                 <h3 className="text-sm font-bold text-gray-800 group-hover:text-purple-700 transition-colors leading-snug">
