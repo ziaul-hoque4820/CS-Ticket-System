@@ -1,7 +1,7 @@
 import React from 'react'
 import bannerImgInProgress from '../assets/vector1.png';
 
-function Banner({ inProgress, resolved }) {
+function Banner({ tickets }) {
     return (
         <div className="grid grid-cols-2 gap-5">
             {/* In-Progress Banner */}
@@ -25,7 +25,7 @@ function Banner({ inProgress, resolved }) {
                 />
 
                 <p className="text-purple-200 text-sm font-medium mb-1 relative z-10">In-Progress</p>
-                <span className="text-white text-6xl font-bold relative z-10">{inProgress}</span>
+                <span className="text-white text-6xl font-bold relative z-10">{tickets.filter(t => t.status === "In-Progress").length}</span>
             </div>
 
             {/* Resolved Banner */}
@@ -49,7 +49,7 @@ function Banner({ inProgress, resolved }) {
                 />
 
                 <p className="text-emerald-100 text-sm font-medium mb-1 relative z-10">Resolved</p>
-                <span className="text-white text-6xl font-bold relative z-10">{resolved}</span>
+                <span className="text-white text-6xl font-bold relative z-10">{tickets.filter(t => t.status === "Resolved").length}</span>
             </div>
         </div>
     )

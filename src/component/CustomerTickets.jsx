@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import TicketCard from './TicketCard'
-import ticketsData from '../data/ticket-data.json';
+
 import Swal from 'sweetalert2';
 
-function CustomerTickets({ setInProgress, setResolved }) {
-    const [tickets, setTickets] = useState(ticketsData);
-
+function CustomerTickets({ tickets, setTickets }) {
 
     const handleUpdateTaskStatus = (ticketId, event) => {
         event.stopPropagation();
@@ -17,8 +15,6 @@ function CustomerTickets({ setInProgress, setResolved }) {
                 ? { ...ticket, status: "In-Progress" }
                 : ticket
         ));
-
-        setInProgress(prev => prev + 1);
 
         // show sweetAlert
         Swal.fire({
