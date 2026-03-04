@@ -2,7 +2,11 @@ import React from 'react'
 import TicketCard from './TicketCard'
 import tickets from '../data/ticket-data.json';
 
-function CustomerTickets() {
+function CustomerTickets({ setInProgress, setResolved }) {
+    const handleTaskStatus = (ticketId, event) => {
+        event.stopPropagation();
+        console.log("Ticket ID:", ticketId);
+    }
 
     return (
         <div className="flex flex-col lg:flex-row gap-5">
@@ -12,7 +16,11 @@ function CustomerTickets() {
                 <h2 className="text-xl font-bold text-gray-800 mb-4">Customer Tickets</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {
-                        tickets.map(ticket => <TicketCard key={ticket.id} ticket={ticket} />)
+                        tickets.map(ticket => {
+                            if (ticket.status === "Open" || ticket.status === "In-Progress") {
+                                return <TicketCard handleTaskStatus={handleTaskStatus} key={ticket.id} ticket={ticket} />
+                            }
+                        })
                     }
                 </div>
             </div>
@@ -23,6 +31,34 @@ function CustomerTickets() {
                 <div className='mb-10'>
                     <h2 className="text-xl font-bold text-gray-800 mb-1">Task Status</h2>
                     <p className="text-xs text-gray-400 mb-4">Select a ticket to add to Task Status</p>
+
+                    {tickets.length === 0 ? (
+                        <p className="text-xs text-gray-400">No tasks in progress.</p>
+                    ) : (
+                        <div className="flex flex-col gap-3">
+                            {tickets.filter(ticket => ticket.status === "In-Progress").map(ticket => (
+                                <div key={ticket.id} className="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+
+                                    {/* Top: Badge */}
+                                    <span className="text-xs font-semibold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">
+                                        ● In-Progress
+                                    </span>
+
+                                    {/* Title */}
+                                    <p className="text-sm font-semibold text-gray-800 mt-2 mb-3">
+                                        {ticket.title}
+                                    </p>
+
+                                    {/* Complete Button */}
+                                    <button
+                                        className="w-full text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-lg py-2 transition-colors"
+                                    >
+                                        ✓ Mark as Complete
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
 
