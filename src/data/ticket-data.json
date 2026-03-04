@@ -23,7 +23,7 @@
         "description": "Customer cannot download their January invoice from the billing section. The download button is unresponsive.",
         "customer": "Michael Brown",
         "priority": "MEDIUM",
-        "status": "In-Progress",
+        "status": "Open",
         "createdAt": "2024-01-17"
     },
     {
@@ -131,7 +131,7 @@
         "description": "Customer disabled email notifications in settings but continues to receive promotional emails.",
         "customer": "Lucas Walker",
         "priority": "LOW",
-        "status": "In-Progress",
+        "status": "Open",
         "createdAt": "2024-01-29"
     }
 ]
