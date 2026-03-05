@@ -4,7 +4,7 @@ import StatusBadge from './StatusBadge'
 function TicketCard({ ticket, handleUpdateTaskStatus }) {
     return (
         <div
-            className="bg-white rounded-xl border border-gray-200 p-4 cursor-pointer hover:shadow-md hover:border-purple-300 transition-all duration-200 group"
+            className="bg-white rounded-xl border border-gray-200 p-4 cursor-pointer hover:shadow-md hover:border-purple-300 hover:bg-blue-50 transition-all duration-200 group"
             onClick={(event) => handleUpdateTaskStatus(ticket.id, event)}
         >
             <div className="flex justify-between items-start gap-2 mb-2">

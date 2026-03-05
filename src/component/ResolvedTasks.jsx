@@ -4,10 +4,9 @@ function ResolvedTasks({ tickets }) {
     return (
         <div>
             <h2 className="text-xl font-bold text-gray-800 mb-1">Resolved Task</h2>
-            <p className="text-xs text-gray-400 mb-4">No resolved tasks yet.</p>
 
-            {tickets.length === 0 ? (
-                <p className="text-xs text-gray-400">No resolved tasks yet.</p>
+            {tickets.filter(ticket => ticket.status === "Resolved").length === 0 ? (
+                <p className="text-xs text-gray-400 font-semibold px-2 py-2 bg-gray-200 rounded-sm">No resolved tasks yet.</p>
             ) : (
                 <div className="flex flex-col gap-3">
                     {tickets.filter(ticket => ticket.status === "Resolved").map(ticket => (

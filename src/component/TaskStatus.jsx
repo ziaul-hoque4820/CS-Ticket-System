@@ -4,11 +4,13 @@ import StatusBadge from './StatusBadge'
 function TaskStatus({ tickets, handleComplete }) {
     return (
         <div className='mb-10'>
-            <h2 className="text-xl font-bold text-gray-800 mb-1">Task Status</h2>
-            <p className="text-xs text-gray-400 mb-4">Select a ticket to add to Task Status</p>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Task Status</h2>
 
-            {tickets.length === 0 ? (
-                <p className="text-xs text-gray-400">No tasks in progress.</p>
+            {tickets.filter(ticket => ticket.status === "In-Progress").length === 0 ? (
+                <div className='px-2 py-2 bg-gray-200 rounded-sm'>
+                    <p className=" text-gray-500 font-bold mb-1">Select a ticket to add to Task Status</p>
+                    <p className="text-xs font-semibold text-gray-400">No tasks in progress.</p>
+                </div>
             ) : (
                 <div className="flex flex-col gap-3">
                     {tickets.filter(ticket => ticket.status === "In-Progress").map(ticket => (
